@@ -25,5 +25,9 @@
 		%>
 	</tbody>
 </table>
+<hr>
+	<a href="accueil.jsp">
+		<button class="btn btn-primary">Accueil</button>
+	</a>
 </body>
 </html>

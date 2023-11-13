@@ -12,7 +12,9 @@
 		<a href="accueil.jsp">
 			<button class="btn btn-primary">Accueil</button>
 		</a>
-		<% if(session == null){ %>
+		<% 
+		
+		if(session == null){ %>
 	<hr>
 		<a href="connect.jsp">
 			<button class="btn btn-primary">Connexion</button>

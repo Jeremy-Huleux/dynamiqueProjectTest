@@ -172,6 +172,25 @@ public class CreerConnexion {
 		cloturerConnexion();
 		return id;
 	}
+	public void ajoutCat(String nomCat) throws SQLException {
+		// TODO Auto-generated method stub
+		etablirConnexion();
+		int verif = 0;
+		sql = "SELECT idCategorie FROM categorie WHERE designation LIKE '"
+				+ nomCat +"'";
+		rs = st.executeQuery(sql);
+		if(rs.next()) {
+			verif = rs.getInt(1);
+		}
+		if(verif != 0) {
+			sql = "INSERT INTO categorie(designation) "
+					+ "VALUES('"+nomCat+"')";
+			ps = cn.prepareStatement(sql);
+			ps.execute();
+		}
+		cloturerConnexion();
+		
+	}
 	
 	
 	/*

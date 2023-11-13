@@ -9,7 +9,7 @@
 <title>Ajout de categorie</title>
 </head>
 <body>
-<form action="form-exemple" action="MyServlet?flag=ajoutCat" method="post">
+<form class="form-exemple" action="MyServlet?flag=ajoutCat" method="post">
 <fieldset>
 	<label for="nomCat">Nom de la catégorie </label>
     <input name="nomCat" id="nomCat" autofocus="autofocus" type="text" size="20"/>       

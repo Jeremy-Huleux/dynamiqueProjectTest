@@ -41,11 +41,7 @@ public class MyServlet extends HttpServlet {
 			HttpSession session = request.getSession(true);
 			Users u = new Users();
 			session.setAttribute("login", login);
-			u = this.doConnexion(request,response);
-			//session.setAttribute("user", u.get)
-
-
-						
+			u = this.doConnexion(request,response);			
 		}else {
 			if(flag.equalsIgnoreCase("inscrit")) {
 				try {
@@ -53,10 +49,23 @@ public class MyServlet extends HttpServlet {
 				} catch (ServletException | IOException | SQLException e) {
 					e.printStackTrace();
 				}
+			}else if(flag.equalsIgnoreCase("ajoutCat")){
+				this.doAjoutCat(request, response);
 			}else {
-				this.doGet(request, response);
-			}
+					this.doGet(request, response);
+				}
 		}
+	}
+
+	private void doAjoutCat(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		String nomCat = request.getParameter("nomCat");
+		try {
+			cc.ajoutCat(nomCat);
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		request.getRequestDispatcher("/listecat.jsp").forward(request, response);
 	}
 
 	private void doInscription(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
