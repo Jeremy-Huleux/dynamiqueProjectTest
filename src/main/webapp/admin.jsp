@@ -18,5 +18,9 @@
 			<button class="btn btn-primary">Ajout de categorie</button>
 		</a>
 	<hr>
+	<a href="ajoutSupprArt.jsp">
+			<button class="btn btn-primary">Ajout et supression d'Articleusse</button>
+		</a>
+	<hr>
 </body>
 </html>

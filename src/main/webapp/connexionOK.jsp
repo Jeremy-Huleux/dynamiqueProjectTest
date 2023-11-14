@@ -34,6 +34,10 @@
 		<button class="btn btn-primary">Liste des Catégories</button>
 	</a>
 <hr>
+	<a href="listeArticle.jsp">
+		<button class="btn btn-primary">Liste des Articles</button>
+	</a>
+<hr>
 <% if(type.equals("a")){ %>
 	<a href="admin.jsp">
 		<button class="btn btn-primary">Panneau Admin</button>

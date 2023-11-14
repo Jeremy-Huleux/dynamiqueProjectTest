@@ -12,19 +12,19 @@
 		<a href="accueil.jsp">
 			<button class="btn btn-primary">Accueil</button>
 		</a>
-		<% 
 		
-		if(session == null){ %>
-	<hr>
+		${empty compte.login ?   
+		 
+	'<hr>
 		<a href="connect.jsp">
 			<button class="btn btn-primary">Connexion</button>
-		</a>
-		<% }else{ %>
-		<hr>
+		</a>'
+		:
+		'<hr>
 		<a href="connexionOK.jsp">
 			<button class="btn btn-primary">Retour connexion</button>
-		</a>
-		<% } %>
+		</a>'
+		}
 	<hr>
 		<a href="inscription.jsp">
 			<button class="btn btn-primary">Inscription</button>

@@ -51,19 +51,38 @@ public class MyServlet extends HttpServlet {
 				}
 			}else if(flag.equalsIgnoreCase("ajoutCat")){
 				this.doAjoutCat(request, response);
+			}else if(flag.equalsIgnoreCase("ajoutArt")){
+				this.doAjoutArt(request, response);
 			}else {
 					this.doGet(request, response);
 				}
 		}
 	}
 
+	private void doAjoutArt(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		String nomArt = request.getParameter("nomArt");
+		float prixU = Float.parseFloat(request.getParameter("prixU"));
+		int quantite = Integer.parseInt(request.getParameter("quantite"));
+		int cat = Integer.parseInt(request.getParameter("cat"));
+		try {
+			cc.ajoutArt(nomArt, prixU, quantite, cat);
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		request.getRequestDispatcher("/ajoutSupprArt.jsp").forward(request, response);
+	}
+
 	private void doAjoutCat(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String nomCat = request.getParameter("nomCat");
+		int idCat = Integer.parseInt(request.getParameter("idCat"));
 		try {
-			cc.ajoutCat(nomCat);
+			cc.ajoutCat(nomCat, idCat);
+			
 		}catch(SQLException e) {
 			e.printStackTrace();
+
 		}
 		request.getRequestDispatcher("/listecat.jsp").forward(request, response);
 	}
@@ -128,9 +147,7 @@ public class MyServlet extends HttpServlet {
 		}
 		request.setAttribute("erreurs", erreurs);
 		request.setAttribute("resultat", resultat);
-		// Redirection 
 		request.getRequestDispatcher("/inscription.jsp").forward(request, response);
-		//response.sendRedirect("/inscrit.jsp");
 	}
 
 	// Vérification de l'âge
@@ -185,23 +202,16 @@ public class MyServlet extends HttpServlet {
 			request.getRequestDispatcher("/connexionKO.jsp").forward(request, response);
 		}else {
 			if(pwd.equals(pwdBDD)) {
-				//return user;
 				user = cc.recupUserInfo(login);
-				//type = cc.recupTypeCompte(login);
 				compte = cc.recupCompte(login);
-				//session.setAttribute("pseudo", login);
 				session.setAttribute("user", user);
 				session.setAttribute("compte", compte);
-				//user.sessionUserInfo(request);
 				request.getRequestDispatcher("/connexionOK.jsp").forward(request, response);
-				//user = cc.recupUserInfo(login);
-				//return user;
-				//session.setAttribute("login", login);
 			}else {
 				request.getRequestDispatcher("/connexionKO.jsp").forward(request, response);
 			}
 		}
 	return user;
 	}
-
+	
 }

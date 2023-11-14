@@ -81,6 +81,51 @@ public class CreerConnexion {
 		}
 		return td;
 	}
+	public String idCatToString(int idCat) {
+		String nomCat = null;
+		sql = "SELECT designation FROM categorie WHERE idCategorie = "+idCat;
+		try {
+			rs = st.executeQuery(sql);
+			if(rs.next()) {
+				nomCat = rs.getString(1);
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return nomCat;
+	}
+	public String listArt() {
+		String td2 = "";
+		sql = "SELECT * FROM article";
+		try {
+			rs= st.executeQuery(sql);
+			while(rs.next()) {
+				td2 =  td2 + "<tr>"
+							+ "	<td>"+ rs.getInt(1) +"</td>"
+							+ "	<td>"+ rs.getString(2) +"</td>"
+							+ "	<td>"+ Math.round(rs.getFloat(3)*1)/1 +"</td>"
+							+ "	<td>"+ rs.getInt(4) +"</td>"
+							+ "	<td>"+ this.idCatToString(rs.getInt(5)) +"</td>"
+						+ "	</tr>";
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return td2;
+	}
+	public String listCatChoix() {
+		String choix = "";
+		sql = "SELECT * FROM categorie";
+		try {
+			rs= st.executeQuery(sql);
+			while(rs.next()) {
+				choix =  choix + "<option value=\""+rs.getInt(1)+"\">"+rs.getString(2)+"</option>";
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return choix;
+	}
 	
 	public String recupTypeCompte(String login) {
 		String type = null;
@@ -172,24 +217,28 @@ public class CreerConnexion {
 		cloturerConnexion();
 		return id;
 	}
-	public void ajoutCat(String nomCat) throws SQLException {
+	public void ajoutCat(String nomCat, int idCat) throws SQLException {
 		// TODO Auto-generated method stub
 		etablirConnexion();
-		int verif = 0;
-		sql = "SELECT idCategorie FROM categorie WHERE designation LIKE '"
-				+ nomCat +"'";
-		rs = st.executeQuery(sql);
-		if(rs.next()) {
-			verif = rs.getInt(1);
-		}
-		if(verif != 0) {
-			sql = "INSERT INTO categorie(designation) "
-					+ "VALUES('"+nomCat+"')";
+
+			sql = "INSERT INTO categorie "
+					+ "VALUES("+idCat+", '"+nomCat+"')";
 			ps = cn.prepareStatement(sql);
 			ps.execute();
-		}
+
 		cloturerConnexion();
 		
+	}
+	public void ajoutArt(String nomArt, float prixU, int quantite, int cat) throws SQLException {
+		// TODO Auto-generated method stub
+		etablirConnexion();
+
+		sql = "INSERT INTO article(designation, pu, qty, idCategorie) "
+				+ "VALUES('"+nomArt+"', '"+prixU+"', "+quantite+", "+cat+")";
+		ps = cn.prepareStatement(sql);
+		ps.execute();
+
+	cloturerConnexion();
 	}
 	
 	

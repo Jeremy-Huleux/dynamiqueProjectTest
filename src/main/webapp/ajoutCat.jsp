@@ -11,6 +11,9 @@
 <body>
 <form class="form-exemple" action="MyServlet?flag=ajoutCat" method="post">
 <fieldset>
+    <label for="idCat">Id de la catégorie </label>
+    <input name="idCat" id="idCat" autofocus="autofocus" type="text" size="20"/>       
+    <br /><br />
 	<label for="nomCat">Nom de la catégorie </label>
     <input name="nomCat" id="nomCat" autofocus="autofocus" type="text" size="20"/>       
     <br /><br />
