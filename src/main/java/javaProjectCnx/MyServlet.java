@@ -53,9 +53,25 @@ public class MyServlet extends HttpServlet {
 				this.doAjoutCat(request, response);
 			}else if(flag.equalsIgnoreCase("ajoutArt")){
 				this.doAjoutArt(request, response);
+			}else if(flag.equalsIgnoreCase("ajoutArtHibernate")){
+				this.doAjoutArtHibernate(request, response);
 			}else {
 					this.doGet(request, response);
 				}
+		}
+	}
+
+	private void doAjoutArtHibernate(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		String nomArt = request.getParameter("nomArt");
+		float prixU = Float.parseFloat(request.getParameter("prixU"));
+		int quantite = Integer.parseInt(request.getParameter("quantite"));
+		int cat = Integer.parseInt(request.getParameter("cat"));
+		Article1 a = new Article1(nomArt, prixU, quantite, cat);
+		try {
+			cc.ajoutArtHibernate(a);
+		}catch(SQLException e) {
+			e.printStackTrace();
 		}
 	}
 

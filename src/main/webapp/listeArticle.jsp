@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="javaProjectCnx.*" %>
+<%@ page import="java.util.*" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,7 +24,7 @@
 		<%
 		CreerConnexion cc = new CreerConnexion();
 		cc.etablirConnexion();
-		String td = cc.listArt(); 
+		List<Article> td = new ArrayList<Article>(); 
 		out.print(td);
 		%>
 	</tbody>
@@ -32,5 +33,4 @@
 	<a href="accueil.jsp">
 		<button class="btn btn-primary">Accueil</button>
 	</a>
-</body>
-</html>
+</body></html>

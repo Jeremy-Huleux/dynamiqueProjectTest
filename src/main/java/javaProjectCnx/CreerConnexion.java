@@ -2,7 +2,13 @@ package javaProjectCnx;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -94,19 +100,23 @@ public class CreerConnexion {
 		}
 		return nomCat;
 	}
-	public String listArt() {
-		String td2 = "";
+	public List<Article> listArt() {
+		List<Article> td2 = new ArrayList<Article>();
+		Article article = new Article();
+		
 		sql = "SELECT * FROM article";
 		try {
 			rs= st.executeQuery(sql);
 			while(rs.next()) {
-				td2 =  td2 + "<tr>"
-							+ "	<td>"+ rs.getInt(1) +"</td>"
-							+ "	<td>"+ rs.getString(2) +"</td>"
-							+ "	<td>"+ Math.round(rs.getFloat(3)*1)/1 +"</td>"
-							+ "	<td>"+ rs.getInt(4) +"</td>"
-							+ "	<td>"+ this.idCatToString(rs.getInt(5)) +"</td>"
-						+ "	</tr>";
+				//td2.add(rs.getInt(1));
+				article = new Article(rs.getInt(1), rs.getString(2), rs.getFloat(3), rs.getInt(4), rs.getInt(5));
+				td2.add(article);				
+				/*
+				 * td2 = td2 + "<tr>" + "	<td>"+ rs.getInt(1) +"</td>" + "	<td>"+
+				 * rs.getString(2) +"</td>" + "	<td>"+ Math.round(rs.getFloat(3)*1)/1 +"</td>" +
+				 * "	<td>"+ rs.getInt(4) +"</td>" + "	<td>"+
+				 * this.idCatToString(rs.getInt(5)) +"</td>" + "	</tr>";
+				 */
 			}
 		}catch (SQLException e) {
 			e.printStackTrace();
@@ -239,6 +249,17 @@ public class CreerConnexion {
 		ps.execute();
 
 	cloturerConnexion();
+	}
+	public void ajoutArtHibernate(Article1 a) {
+		// TODO Auto-generated method stub
+		Configuration configuration = new Configuration().configure();
+		SessionFactory sf = configuration.buildSessionFactory();
+		Session session = sf.openSession();
+		Transaction tr = session.beginTransaction();
+		session.persist(a);
+		tr.commit();
+		session.close();
+		sf.close();
 	}
 	
 	

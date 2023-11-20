@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
         <%@ page import="javaProjectCnx.*" %>
 <!DOCTYPE html>
+<% getElementById("myform").reset(); %>
 <html>
 <head>
 <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -21,10 +22,10 @@
 	</thead>
 	<tbody>
 		<%
-		CreerConnexion cc = new CreerConnexion();
+		/* CreerConnexion cc = new CreerConnexion();
 		cc.etablirConnexion();
 		String td = cc.listArt(); 
-		out.print(td);
+		out.print(td); */
 		%>
 	</tbody>
 </table>
@@ -45,12 +46,13 @@
 </tr>
 <tr>
 	<td><label for="cat">Categorie :</label>
-    <td><select name="cat" id="cat">
+	<td><input name="cat" id="cat" autofocus="autofocus" type="text" size="20"/></td>    
+    <!--<td><select name="cat" id="cat">
 		<%
-		String choix = cc.listCatChoix(); 
-		out.print(choix);
+	/* 	String choix = cc.listCatChoix(); 
+		out.print(choix); */
 		%>
-   	</select></td>
+   	</select></td>-->
 </tr>
 <tr>
     <td><input type="submit" class="btn btn-primary" value="Ajouter" /></td>
